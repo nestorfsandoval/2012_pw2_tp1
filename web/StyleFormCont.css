@@ -1,0 +1,54 @@
+	div#form	{
+		padding: 10px;
+		padding-top: 0px;
+  		background-color: #ffffff;
+  		width: 360px;
+                font-size: 18px;
+                
+	}
+
+	p.form{
+		margin: 10px 0 0 0;
+		padding: 0px;
+		border: 0px;
+		font-family: Arial, sans-serif;
+		color: white;
+		font-size: 16px;
+                font-weight:bold;
+                
+	}
+
+	input.form, input.formsubmit, select.form, option.form, textarea.form {
+		color: black;
+		font-size: 12px;
+		border: 1px solid #C8C8C8;
+		padding: 2px;
+		background: #fafafa url(layout/img04.gif) repeat-x;
+		margin-top: 2px;
+		font-family:Arial, sans-serif;
+         	}
+	/*input.form:hover, input.form:focus, select.form:hover, textarea.form:hover, select.form:focus, textarea.form:focus, input.formsubmit:hover {
+		border: 1px solid #000000;
+	}*/
+	option.form	{
+		padding: 0px;
+		width: 150px;
+		border: 0px;
+		width: auto;
+	}
+	input.form, select.form, textarea.form {
+		width: 350px;
+		height: auto;
+	}
+	input.form, select.form, textarea.form {
+		width: 350px;
+	}
+	input.formsubmit	{
+		width: auto;
+	}
+
+
+	#ein,#aus	{
+		display: none;
+	}
+
