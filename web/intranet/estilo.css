@@ -1,0 +1,211 @@
+
+body{
+	background:#DADADA url(img/bg_body.gif) left top repeat-x;
+	color:black;
+	font-family:sans-serif;
+}
+
+a{
+	color:black;
+	text-decoration:none;
+}
+
+a.sesion{
+	color:#5D1D7B;
+	
+}
+
+a:hover{
+	color: red;
+	text-decoration:none;
+}
+
+div.encabezado,.cuerpo {
+  clear:both;
+  width:1080px;
+  margin:auto;
+ }
+
+div.menu{
+  
+  font-weight:bold;
+  clear:both;
+  width:100%;
+  margin:auto;
+  text-align:center;
+  font-size: 18px;
+}
+
+div.izquierda {
+  float:left;
+
+}
+
+div.pie{
+	width:1080
+	clear:both;
+}
+
+div .contenedor{
+	width:80%;
+	float:left;
+}
+
+div .panel{
+	width:20%;
+	float:right;
+}
+
+.panel input{
+	width:100%;
+}
+
+div.derecha {
+  float:right;
+  font-weight:bold;
+}
+
+input.derech{
+	float:right;
+}
+
+input.busqueda{
+ float:left;
+ color:#5D5D5D;
+ border:1px solid #BBB;
+ width:200px;
+ vertical-align:top;
+ padding:4px;
+}
+
+input.fecha{
+ float:left;
+ color:#5D5D5D;
+ border:1px solid #BBB;
+ width:100px;
+ vertical-align:top;
+ padding:4px;
+}
+
+input.listar{
+ color:#5D5D5D;
+ border:1px solid #BBB;
+ width:100px;
+ margin:10px;
+ padding:5px 10px 5px 10px;
+}
+
+label{
+ float:left;
+ padding:4px 0px 0px 100px;
+}
+
+label.formulario{
+	width:90%;
+	padding:0px;
+}
+
+select {
+ width:100%;
+ float:right;
+}
+
+h{
+ float:center;
+ text-decoration:underline:
+}
+
+hr{
+color:red;
+clear:both;
+}
+
+table{
+	margin:auto;
+	clear:both;
+}
+
+td {
+	border:0;
+	width:200px;
+	padding: 5px 0px 5px 0px;	
+	text-align:center;
+}
+
+.inicio{
+float:right;
+}
+
+p{
+ padding-top:20px;
+ width:100%;
+ margin:auto;
+}
+
+ul{
+	width:700px;
+	margin:auto;
+	padding-bottom:40px;
+}
+
+li{
+ padding-top:20px;
+}
+
+.titulos{
+	font-size:13px;
+	background-color:#555555;
+	color:white;
+	font-weight:bold;
+	
+}
+
+.listado{
+	font-size:13px;
+	background-color:#B0B0B0;
+}
+
+
+
+form.right{
+float:right;
+text-align:center;
+width:20%;
+}
+
+form.left{
+float:left;
+text-align:center;
+}
+
+form.panelUser{
+	width:300px;
+}
+
+td img{
+margin-right:25px;
+margin-left:25px;
+}
+
+.addStock input{margin:auto;margin-left:5px;float:left;}
+.mas{float:left;}
+
+#newUsuario,#editarDisco,#delUsuario,#modUsuario,#newProdu,#agregaCompra,#editarCompra{
+	font-size:80%;
+}
+
+.ui-dialog .ui-state-error { padding: .3em; }
+.validateTips { border: 1px solid transparent; padding: 0.3em;width:}
+.ui-button-text{font-size:60%;}
+.ui-widget-header {fon-size:60%}
+/*estilo ui usuarios
+		body { font-size: 62.5%; }
+		label, input { display:block; }
+		input.text { margin-bottom:12px; width:95%; padding: .4em; }
+		fieldset { padding:0; border:0; margin-top:25px; }
+		h1 { font-size: 1.2em; margin: .6em 0; }
+		div#users-contain { width: 350px; margin: 20px 0; }
+		div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+		div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+		.ui-dialog .ui-state-error { padding: .3em; }
+		.validateTips { border: 1px solid transparent; padding: 0.3em; }*/
