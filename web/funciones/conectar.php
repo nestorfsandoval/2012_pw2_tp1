@@ -13,14 +13,15 @@ try{
 }
 
 //esta funcion toma cualquier consulta y devolvera un array con los datos
-function consultar($query){
+function consultar($query,$conectar){
     try{
-    $statement= $pdo->query($query);
+    $statement= $conectar->query($query);
+    
     }  catch (PDOException $e){
         echo 'Error en la consulta:'.$e->getMessage();
     }
-    $row=$statement->fetch(PDO::FETCH_ASSOC);
-
+      
+    $row=$statement->fetchall(PDO::FETCH_ASSOC);
     return $row;
 }
 ?>

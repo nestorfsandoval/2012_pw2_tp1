@@ -1,8 +1,11 @@
+<?php
+    require_once '../funciones/conectar.php';
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 	<head>
 		<title>Pochola's Music - inicio </title>
-                <meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
+                <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
                 <link type="text/css" href="estilo.css" rel="stylesheet"/>
                 <link type="text/css" href="css/smoothness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
 		<script type="text/javascript" language="JavaScript" src="../js/jquery-1.6.2.js"></script>

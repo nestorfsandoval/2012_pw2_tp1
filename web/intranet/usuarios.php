@@ -42,15 +42,21 @@
     </div>
     <!-- FORMULARIO PARA AGREGAR USUARIOS -->
     <div id="newUsuario" title="Nuevo Usuario">
-		<p id="titAlert" class="validateTips">Rellene todos los campos</p>
-                <form id="addUser" action="../Usuario" method="POST">
-			<label class="formulario">Nombre:</label>
-			<input id="name" type="text" name="nombre" class="text ui-widget-content ui-corner-all"><br/>	
-			<label class="formulario">Usuario:</label>
-			<input id="user" type="text" name="user" class="text ui-widget-content ui-corner-all"><br/>
-			<label class="formulario">Contrase&ntilde;a:</label>
-			<input id="password" type="password" name="pass" class="text ui-widget-content ui-corner-all"><br/>
-		</form>
+	<p id="titAlert" class="validateTips">Rellene todos los campos</p>
+        <form id="addUser" action="" method="POST">
+                    <label>Nombre:</label>
+                    <input id="name" type="text" name="nombre"><br/>	
+                    <label>Apellido:</label>
+                    <input id="apellido" type="text" name="apellido"><br/>	
+                    <label>Usuario:</label>
+                    <input id="user" type="text" name="user"><br/>
+                    <label>Contrase&ntilde;a:</label>
+                    <input id="password" type="password" name="pass"><br/>
+                    <label>Correo Electr&oacute;nico:</label>
+                    <input id="user" type="email" name="mail"><br/>
+                    <label>Ciudad:</label>
+                    <input id="user" type="text" name="ciudad"><br/>
+	</form>
     </div>
 			
     <!-- FORMULARIO PARA AGREGAR O EDITAR USUARIOS -->
@@ -77,3 +83,17 @@
 		</div>
     </div>
 </div>
+<?php
+    echo 'prueba de coneccion';
+    $query="select * from provincia";
+    try{
+    $statement= $pdo->query($query);
+    }  catch (PDOException $e){
+        echo 'Error en la consulta:'.$e->getMessage();
+    }
+    $resultado=$statement->fetch(PDO::FETCH_ASSOC);    
+    
+    foreach($resultado as $codigo=>$prov):
+        echo $codigo['idprovincia'].' = '.$prov['provincia'];
+    endforeach;
+?>

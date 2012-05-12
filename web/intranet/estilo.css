@@ -193,6 +193,21 @@ margin-left:25px;
 #newUsuario,#editarDisco,#delUsuario,#modUsuario,#newProdu,#agregaCompra,#editarCompra{
 	font-size:80%;
 }
+#addUser{
+    width:100%;
+}
+#addUser label{
+    float: left;
+    padding:0px;
+    text-align: right;
+    width: 40%;
+}
+#addUser input{
+    border-radius: 4px;
+    float: left;
+    padding-left: 2px;
+    width: 50%;
+}
 
 .ui-dialog .ui-state-error { padding: .3em; }
 .validateTips { border: 1px solid transparent; padding: 0.3em;width:}

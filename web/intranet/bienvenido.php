@@ -3,7 +3,6 @@
     Created on : 18/11/2011, 23:03:22
     Author     : nestor
 -->
-<?php echo 'modificacion';?>
 <div class="cuerpo">
 	<fieldset>
             <div class="inicio"><img src="img/e-commerce3.png" /></div>

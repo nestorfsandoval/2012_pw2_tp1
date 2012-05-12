@@ -1,6 +1,6 @@
 $(function() {
 		
-		//obtengo fecha y año actual
+		//obtengo fecha y a?oo actual
 		var fecha=new Date();
 		var year=fecha.getYear()+1900;
 		var	name = $( "#name" ),
@@ -62,7 +62,7 @@ $(function() {
 		
 		$( "#newUsuario" ).dialog({//NEW USER
 			autoOpen: false,
-			height: 300,
+			height: 400,
 			width: 350,
 			modal: true,
 			buttons: {
