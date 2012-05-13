@@ -62,7 +62,7 @@
         <!--FIN DIV QUE CONTIENE EL ENCABEZADO-->
                  
     <div id="cuerpo">
-        <?php include $contenido;?>
+       <!-- <?php include $contenido;?> -->
     </div>
     <div id="pie">
                  

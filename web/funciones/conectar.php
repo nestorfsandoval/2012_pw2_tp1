@@ -2,7 +2,7 @@
 $host="localhost";
 $db="pocholas-db";
 $user="root";
-$pass="sa";
+$pass="";
 try{
     $conectar=new PDO("mysql:host=$host;dbname=$db",$user,$pass);
     $conectar->setAttribute(PDO::ATTR_EMULATE_PREPARES,true);
