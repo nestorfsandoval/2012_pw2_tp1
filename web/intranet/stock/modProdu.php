@@ -1,4 +1,4 @@
-<div id="editarDisco" title="Modificar Disco">
+<div id="form-editar-disco-<?php echo $produ['idproducto']?>" class="editarDisco" title="Modificar Disco">
     <p id="editAlert" class="validateTips"></p>
     <form action="" method="POST">
         <input type="hidden" name="op" value="3">

@@ -218,12 +218,14 @@ $(function() {
 		$( ".editProdu" )
 			.button()
 			.click(function() {
-                            $(this).parent().find("#editarDisco").css("display","block");
+                            var form_id = $(this).data('form');
+                            
+                            $("#"+form_id).dialog("open");
 			});
                         
-                $("#editarDisco").css("display","none");
+                //$("#editarDisco").css("display","none");
 		
-		/*$("#editarDisco").dialog({
+		$(".editarDisco").dialog({
 			autoOpen:false,
 			height: 400,
 			width: 350,
@@ -268,7 +270,7 @@ $(function() {
 				$("#titAlert").html("Rellene todos los campos"),
 				$("#editAlert").html("");				
 			}
-		});*/
+		});
 		//----------------------------COMPRAS Y VENTAS-----------------------------------------	
 		
 

@@ -72,7 +72,7 @@
             <?php
                 foreach($listado as $id => $produ):
             ?>
-                        <tr id="disco1" class="listado">
+                        <tr id="<?php echo $produ['idproducto'].'-'.$produ['titulo']?>" class="listado">
                             <td><?php echo$produ['idproducto']?></td>
                             <td><?php echo$produ['titulo']?></td>
                             <td><?php echo$produ['nombre']?></td>
@@ -80,13 +80,13 @@
                             <td><?php echo$produ['tipo']?></td>
                             <td>
                                 <img src="img/add.png" width="15px" title="Agregar" alt="Agregar Stock" class="mas"/>
-                                <?php require_once 'stock/modStock.php';?>|
-                                <img src="img/edit.gif" width="18px" title="Editar" alt="Editar Carga" class="editProdu"/>
-                                <?php require_once 'stock/modProdu.php';?>
+                                <?php require 'stock/modStock.php';?>|
+                                <img data-form="form-editar-disco-<?php echo $produ['idproducto']?>" src="img/edit.gif" width="18px" title="Editar" alt="Editar Carga" class="editProdu"/>
+                                <?php require 'stock/modProdu.php';?>
                             </td>
                         </tr>
                         <?php
-                    echo '<option value='.$art['idartista'].'>'.$art['nombre'].'</option>';
+                    //echo '<option value='.$art['idartista'].'>'.$art['nombre'].'</option>';
                 endforeach;
             ?>
             
