@@ -1,8 +1,5 @@
 <?php
-$host="localhost";
-$db="pocholas-db";
-$user="root";
-$pass="";
+require_once 'datos_conexion.php';
 try{
     $conectar=new PDO("mysql:host=$host;dbname=$db",$user,$pass);
     $conectar->setAttribute(PDO::ATTR_EMULATE_PREPARES,true);
@@ -16,7 +13,6 @@ try{
 function consultar($query,$conectar){
     try{
     $statement= $conectar->query($query);
-    
     }  catch (PDOException $e){
         echo 'Error en la consulta:'.$e->getMessage();
     }
@@ -24,4 +20,5 @@ function consultar($query,$conectar){
     $row=$statement->fetchall(PDO::FETCH_ASSOC);
     return $row;
 }
+
 ?>
