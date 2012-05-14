@@ -44,7 +44,7 @@ $(function() {
 		function validaAnio(y){
 			if (y.val() > year){
 				y.addClass( "ui-state-error" );
-				updateTips( "El Año no puede Ser Mayor al Actual." );
+				updateTips( "El A&ntilde;o no puede Ser Mayor al Actual." );
 				return false;
 			}else{
 				return true;
@@ -171,10 +171,10 @@ $(function() {
 									allFields.removeClass( "ui-state-error" );
 				
 									bValid = bValid && checkLength( titulo, "Titulo", 1, 40 );
-									bValid = bValid && checkLength( interprete, "Interprete", 2, 20 );
-									bValid = bValid && checkLength( anio, "Año", 1, 4 );
+									//bValid = bValid && checkLength( interprete, "Interprete", 2, 20 );
+									bValid = bValid && checkLength( anio, "A&ntilde;o", 1, 4 );
 									bValid = bValid && checkLength( cant, "Cantidad", 1, 9 );
-									bValid = bValid && checkLength( genero, "Genero", 2, 30 );
+									//bValid = bValid && checkLength( genero, "Genero", 2, 30 );
 									bValid = bValid && checkLength( valor, "Precio", 1, 20 );
 									
 									bValid = bValid && checkRegexp( titulo, /^[\w\-\s\dÀÈÌÒÙàèìòùÁÉÍÓÚÝáéíóúýÂÊÎÔÛâêîôûÃÑÕãñõÄËÏÖÜäëïöüçÇßØøÅåÆæÞþÐð]+$/i, "Título puede contener valores de a-z, 0-9, guiones bajos, y debe comenzar con una letra." );
@@ -185,6 +185,7 @@ $(function() {
 									bValid = bValid && checkRegexp( genero, /^[\w\-\s\dÀÈÌÒÙàèìòùÁÉÍÓÚÝáéíóúýÂÊÎÔÛâêîôûÃÑÕãñõÄËÏÖÜäëïöüçÇßØøÅåÆæÞþÐð]+$/i, "Género puede contener valores de a-z, 0-9, guiones bajos, y debe comenzar con una letra." );
 									
 									if ( bValid ) {
+                                                                                $("#newProdu").submit(),
 										alert("El Disco se agrego Correctamente."),
 											$( this ).dialog( "close" );
 										}
@@ -214,13 +215,15 @@ $(function() {
 					})
 		});
 		//EDITAR DISCO-----------------------------------------------------------------
-		$( "#editProdu" )
+		$( ".editProdu" )
 			.button()
 			.click(function() {
-				$( "#editarDisco" ).dialog( "open" );
+                            $(this).parent().find("#editarDisco").css("display","block");
 			});
+                        
+                $("#editarDisco").css("display","none");
 		
-		$("#editarDisco").dialog({
+		/*$("#editarDisco").dialog({
 			autoOpen:false,
 			height: 400,
 			width: 350,
@@ -265,7 +268,7 @@ $(function() {
 				$("#titAlert").html("Rellene todos los campos"),
 				$("#editAlert").html("");				
 			}
-		});
+		});*/
 		//----------------------------COMPRAS Y VENTAS-----------------------------------------	
 		
 
@@ -285,13 +288,11 @@ $(function() {
 		});
 					
  	$("#frm_btn_list").bind({
-				submit: function (event)
-						{
-						    if ((!posibleFecha($("#fechad").val())) || (!posibleFecha($("#fechah").val())))
-								{ 
-								 	alert("CUIDADO, INGRESO FECHA/S NO VALIDA/S");
-									return false;
-								}else{
+            submit: function (event){
+                if ((!posibleFecha($("#fechad").val())) || (!posibleFecha($("#fechah").val()))){ 
+                    alert("CUIDADO, INGRESO FECHA/S NO VALIDA/S");
+                    return false;
+                }else{
 									return true;
 								} 
 						}

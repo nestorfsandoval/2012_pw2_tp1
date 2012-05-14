@@ -1,43 +1,62 @@
 <?php
+//CONSULTAS PARA OPCIONES DE SELECT
+
+    //CONSULTA DE LISTA DE GENEROS DISPONIBLES
     $consulta="SELECT * FROM genero";
     $genero= consultar($consulta,$conectar);
     
+    //CONSULTA DE LISTA DE ARTISTAS DISPONIBLES
     $consulta="SELECT * FROM artista";
     $artista= consultar($consulta,$conectar);
-    
+
+    //SI LA ACCION ESTA SETEADA Y ES IGUAL A NUEVO ,CARGO EL PRODUCTO NUEVO
+    if(isset($_GET['acc'])&& ($_GET['acc']=='nuevo')){
+        $sql = 'INSERT INTO producto (titulo,idartista,idgenero,anio,stock,precio) values(:tit,:art,:gen,:anio,:stock,:precio)';
+        $stmt = $conectar->prepare($sql);
+        $stmt->bindParam(':tit', $_GET['titulo'],PDO::PARAM_STR);
+        $stmt->bindParam(':art', $_GET['interprete'],PDO::PARAM_INT);
+        $stmt->bindParam(':gen', $_GET['genero'],PDO::PARAM_INT);
+        $stmt->bindParam(':anio', $_GET['anio'],PDO::PARAM_INT);
+        $stmt->bindParam(':stock', $_GET['cant'], PDO::PARAM_INT);
+        $stmt->bindParam(':precio', $_GET['valor'], PDO::PARAM_STR);
+        
+       try{
+            $stmt->execute();
+        }catch (PDOException $e){
+            echo 'Error no se pudieron cargar los datos '. $e->getMessage();
+        }
+   }    
+   
+   //CONSULTA PARA LISTADO DE ARTICULOS
+    $consulta="SELECT 
+                    idproducto,titulo,nombre,stock,tipo,anio,precio 
+                FROM 
+                    producto p
+                JOIN 
+                    artista a ON p.idartista=a.idartista    
+                JOIN 
+                    genero g ON p.idgenero=g.idgenero
+                ORDER BY 
+                    idproducto 
+                DESC 
+                    limit 10";
+    $listado= consultar($consulta,$conectar);
+   
 ?>
 <!--DIV DE LISTADO DE ARTICULOS-->
 <div class="cuerpo">
     <fieldset>
         <legend>Control de Stock</legend>
-        <form class="left" action="" method="get">
+        <form class="left" action="stock.php" method="GET">
+            <!-- ESTE INPUT OCULTO INDICA A QUE CONTENIDO DEBE MANDARLE LOS VALORES DEL FORMULARIO -->
+            <input type="hidden" name="op" value="3">
             <input  class="busqueda" type="text" name="busqueda" value="Ingrese Busqueda..." size="50" />
             <input type="image" name="buscar" src="img/lupa.png"/>
         </form>
         <form class="right">
             <input type="button" id="addProdu" name="nuevodisco" value="Agregar Producto"/>
         </form>
-        <form id="newProdu" class="panelUser" action="" method="POST" title="Nuevo Disco">
-            <p id="titAlert" class="validateTips">Rellene todos los campos</p>
-            <label class="formulario">Titulo:</label>
-            <input type="text" name="titulo" id="titulo"><br/>
-            <label class="formulario">Interprete:</label>
-            <input type="text" name="interprete" id="interprete"><br/>
-            <label class="formulario">A&ntilde;o:</label>
-            <input type="text" name="anio" id="anio"><br/>
-            <label class="formulario">Cant. Inicial:</label>
-            <input type="text" name="cant" id="cant"><br/>
-            <label class="formulario">Genero:</label>
-            <select class="formulario" name="genero" id="genero" >
-                <?php 
-                foreach($genero as $id => $gro):
-                    echo '<option value='.$gro['idgenero'].'>'.$gro['tipo'].'</option>';
-                endforeach;
-                ?>
-            </select>
-            <label class="formulario">Precio:</label>
-            <input type="text" name="genero" id="valor"><br/>
-        </form>
+        <?php require_once('stock/addProdu.php');?>
         <hr />
 
         <table id="tablaStock">
@@ -49,48 +68,29 @@
                 <td>GENERO</td>
                 <td>ACCION</td>
             </tr>		
-            <tr id="disco1" class="listado">
-                <td>CUMB006</td>
-                <td>Malagata</td>
-                <td>Malagata</td>
-                <td>4</td>
-                <td>Cumbia</td>
-                <td>
-                    <img src="img/add.png" width="15px" title="Agregar" alt="Agregar Stock" class="mas"/>
-                    <form class="addStock" method="post">
-                        <input type="text" name="addCant" size="2"/>
-                        <input type="image" class="ui-icon ui-icon-plusthick" name="agregar"/>
-                    </form>|
-                    <img src="img/edit.gif" width="18px" title="Editar" alt="Editar Carga" id="editProdu"/>
-                </td>
-            </tr>
+            <!--LISTADO DE ULTIMOS 10 PRODUCTOS-->
+            <?php
+                foreach($listado as $id => $produ):
+            ?>
+                        <tr id="disco1" class="listado">
+                            <td><?php echo$produ['idproducto']?></td>
+                            <td><?php echo$produ['titulo']?></td>
+                            <td><?php echo$produ['nombre']?></td>
+                            <td><?php echo$produ['stock']?></td>
+                            <td><?php echo$produ['tipo']?></td>
+                            <td>
+                                <img src="img/add.png" width="15px" title="Agregar" alt="Agregar Stock" class="mas"/>
+                                <?php require_once 'stock/modStock.php';?>|
+                                <img src="img/edit.gif" width="18px" title="Editar" alt="Editar Carga" class="editProdu"/>
+                                <?php require_once 'stock/modProdu.php';?>
+                            </td>
+                        </tr>
+                        <?php
+                    echo '<option value='.$art['idartista'].'>'.$art['nombre'].'</option>';
+                endforeach;
+            ?>
+            
         </table>
     </fieldset>	
 </div>	
 <!--DIV DE MODIFICACION-->
-<div id="editarDisco" title="Modificar Disco">
-    <p id="editAlert" class="validateTips"></p>
-    <form action="" method="POST">
-        <label class="formulario">C&oacute;digo</label>
-        <input type="text" name="cod"disabled="true" id="cod" value="CUMB006"><br/>
-        <label class="formulario">T&iacute;tulo</label>
-        <input type="text" name="tit" id="tit" value="Malagata" ><br/>
-        <label class="formulario">Interprete:</label>
-        <input type="text" name="interprete" id="inter" value="Malagata"><br/>
-        <label class="formulario">A&ntilde;o:</label>
-        <input type="text" name="anio" id="anual" value="1992"><br/>
-        <label class="formulario">Genero:</label>
-        <select name="genero" id="gen" >
-            <option value="Cumbia" selected="selected">Cumbia</option>
-            <option value="Rock">Rock</option>
-            <option value="Pop_Internacional">Pop Internacional</option>
-            <option value="Folcklore">Folcklore</option>
-            <option value="Reggaeton">Reggaeton</option>
-            <option value="Reagge">Reagge</option>
-        </select>
-        <label class="formulario">Cantidad:</label>
-        <input type="text" name="cant" id="cantidad" value="4"><br/>
-        <label class="formulario">Precio:</label>
-        <input type="text" name="genero" id="precio" value="20.00"><br/>
-    </form>
-</div>
