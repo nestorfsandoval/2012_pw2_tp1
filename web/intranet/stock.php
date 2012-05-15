@@ -10,16 +10,29 @@
     $artista= consultar($consulta,$conectar);
 
     //SI LA ACCION ESTA SETEADA Y ES IGUAL A NUEVO ,CARGO EL PRODUCTO NUEVO
-    if(isset($_GET['acc'])&& ($_GET['acc']=='nuevo')){
-        $sql = 'INSERT INTO producto (titulo,idartista,idgenero,anio,stock,precio) values(:tit,:art,:gen,:anio,:stock,:precio)';
-        $stmt = $conectar->prepare($sql);
-        $stmt->bindParam(':tit', $_GET['titulo'],PDO::PARAM_STR);
-        $stmt->bindParam(':art', $_GET['interprete'],PDO::PARAM_INT);
-        $stmt->bindParam(':gen', $_GET['genero'],PDO::PARAM_INT);
-        $stmt->bindParam(':anio', $_GET['anio'],PDO::PARAM_INT);
-        $stmt->bindParam(':stock', $_GET['cant'], PDO::PARAM_INT);
-        $stmt->bindParam(':precio', $_GET['valor'], PDO::PARAM_STR);
+    if(isset($_GET['acc'])){
         
+        //si si esta seteado acc y es igual a 'nuevo', sql=insert
+        if(($_GET['acc']=='nuevo')){
+            $sql = 'INSERT INTO producto (titulo,idartista,idgenero,anio,stock,precio) values(?,?,?,?,?,?)';
+        }
+        //si si esta seteado acc y es igual a 'editar', sql=update
+        if($_GET['acc']=='editar'){
+            $sql = 'UPDATE producto SET titulo=?, idartista=?, idgenero=?, anio=?, stock=?, precio=? WHERE idproducto=?';$stmt = $conectar->prepare($sql);
+        }
+        
+        $stmt = $conectar->prepare($sql);
+        $stmt->bindParam(1, $_GET['titulo'],PDO::PARAM_STR);
+        $stmt->bindParam(2, $_GET['interprete'],PDO::PARAM_INT);
+        $stmt->bindParam(3, $_GET['genero'],PDO::PARAM_INT);
+        $stmt->bindParam(4, $_GET['anio'],PDO::PARAM_INT);
+        $stmt->bindParam(5, $_GET['cant'], PDO::PARAM_INT);
+        $stmt->bindParam(6, $_GET['valor'], PDO::PARAM_STR);
+        
+        if($_GET['acc']=='editar'){
+        $stmt->bindParam(7, $_GET['cod'], PDO::PARAM_INT);
+        }
+        //echo 'UPDATE producto SET titulo='.$_GET['titulo'].', idartista='.$_GET['interprete'].',idgenero='.$_GET['genero'].',anio='.$_GET['anio'].',stock='.$_GET['cant'].',precio='.$_GET['valor'].' WHERE idproducto='.$_GET['cod'];
        try{
             $stmt->execute();
         }catch (PDOException $e){

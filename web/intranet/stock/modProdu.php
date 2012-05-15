@@ -1,12 +1,12 @@
-<div id="form-editar-disco-<?php echo $produ['idproducto']?>" class="editarDisco" title="Modificar Disco">
-    <p id="editAlert" class="validateTips"></p>
-    <form action="" method="POST">
+  <form id="form-editar-disco-<?php echo $produ['idproducto']?>" class="editarDisco" title="Modificar Disco" action="index.php" method="GET">
+        <p id="editAlert" class="validateTips"></p>
         <input type="hidden" name="op" value="3">
-        <input type="hidden" name="acc" value="editar">                        
+        <input type="hidden" name="acc" value="editar">
         <label class="formulario">C&oacute;digo</label>
-        <input type="text" name="cod"disabled="true" id="cod" value="<?echo $produ['idproducto']?>"/><br/>
+        <input type="hidden" name="cod" value="<?echo $produ['idproducto']?>">
+        <input type="text" disabled="true" id="cod" value="<?echo $produ['idproducto']?>"/><br/>
         <label class="formulario">T&iacute;tulo</label>
-        <input type="text" name="tit" id="tit" value="<?echo $produ['titulo']?>" ><br/>
+        <input type="text" name="titulo" id="tit" value="<?echo $produ['titulo']?>" ><br/>
         <select class="formulario" name="interprete" id="interprete" >
             <?php
             foreach($artista as $id => $art):
@@ -35,6 +35,5 @@
         <label class="formulario">Cantidad:</label>
         <input type="text" name="cant" id="cantidad" value="<?echo $produ['stock']?>"><br/>
         <label class="formulario">Precio:</label>
-        <input type="text" name="genero" id="precio" value="<?echo $produ['precio']?>"><br/>
+        <input type="text" name="valor" id="precio" value="<?echo $produ['precio']?>"><br/>
     </form>
-</div>

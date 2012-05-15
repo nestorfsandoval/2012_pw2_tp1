@@ -1,10 +1,14 @@
 <?php
-    require_once '../funciones/conectar.php';
+session_start();
+session_regenerate_id();
+require_once '../funciones/conectar.php';
+
+if(isset($_SESSION['user_interno'])){
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 	<head>
-		<title>Pochola's Music - inicio </title>
+		<title>Pochola's Music - INTRANET </title>
                 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
                 <link type="text/css" href="estilo.css" rel="stylesheet"/>
                 <link type="text/css" href="css/smoothness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
@@ -37,7 +41,7 @@
 				<img src="../img/logo.png" />
 			</div>
 			<div class="derecha">
-				Que talco <span id="usuario"></span> | <a class="sesion" href="">Desconectar</a>
+				Bienvenido <?php echo $_SESSION['user_interno']?> | <a class="sesion" href="../index.php?logout=on">Desconectar</a>
 			</div>
 		</div>	
 		<div class="menu">
@@ -53,4 +57,9 @@
 		
         </body>
 </html>
-  
+ <?php
+}else{
+    echo 'Usted no tiene permisos para ingresar a esta secci&oacute;n, y sera redirigido a la P?gina Principal de Pocholas Music';
+    header ( "Refresh: 5; ../index.php");
+
+}

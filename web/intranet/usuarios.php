@@ -1,3 +1,35 @@
+<?php 
+
+if(isset($_POST['user'])){
+        
+        //si si esta seteado acc y es igual a 'nuevo', sql=insert
+        if(($_POST['acc']=='nuevo')){
+            $pass=md5($_POST['pass']);
+            $sql = 'INSERT INTO empleado (apellido,nombre,user,pass,mail,id_ciudad,id_prov) values(?,?,?,?,?,?,?)';
+        }
+        //si si esta seteado acc y es igual a 'editar', sql=update
+        if($_POST['acc']=='editar'){
+            //$sql = 'UPDATE producto SET titulo=?, idartista=?, idgenero=?, anio=?, stock=?, precio=? WHERE idproducto=?';$stmt = $conectar->prepare($sql);
+        }
+        
+        $stmt = $conectar->prepare($sql);
+        $stmt->bindParam(1, $_POST['apellido'],PDO::PARAM_STR);
+        $stmt->bindParam(2, $_POST['nombre'],PDO::PARAM_STR);
+        $stmt->bindParam(3, $_POST['user'],PDO::PARAM_STR);
+        $stmt->bindParam(4, $pass,PDO::PARAM_STR);
+        $stmt->bindParam(5, $_POST['mail'], PDO::PARAM_STR);
+        $stmt->bindParam(6, $_POST['ciudad'], PDO::PARAM_INT);
+        $stmt->bindParam(7, $_POST['prov'], PDO::PARAM_INT);
+        
+       try{
+            $stmt->execute();
+        }catch (PDOException $e){
+            echo 'Lo sentimos, no se pudo cargar el usuario'.$e->getMessage();
+        }
+   }    
+   
+?>
+
 <!--CUERPO-->
 <div class="cuerpo">
 	<!-- CONTENEDOR -->
@@ -40,24 +72,9 @@
 			<input id="delUser" type="button" name="del_user" value="Borrar / Editar"/>
 	</fieldset>
     </div>
-    <!-- FORMULARIO PARA AGREGAR USUARIOS -->
-    <div id="newUsuario" title="Nuevo Usuario">
-	<p id="titAlert" class="validateTips">Rellene todos los campos</p>
-        <form id="addUser" action="" method="POST">
-                    <label>Nombre:</label>
-                    <input id="name" type="text" name="nombre"><br/>	
-                    <label>Apellido:</label>
-                    <input id="apellido" type="text" name="apellido"><br/>	
-                    <label>Usuario:</label>
-                    <input id="user" type="text" name="user"><br/>
-                    <label>Contrase&ntilde;a:</label>
-                    <input id="password" type="password" name="pass"><br/>
-                    <label>Correo Electr&oacute;nico:</label>
-                    <input id="user" type="email" name="mail"><br/>
-                    <label>Ciudad:</label>
-                    <input id="user" type="text" name="ciudad"><br/>
-	</form>
-    </div>
+    <?php
+        require 'usuarios/nuevoUser.php';
+    ?>
 			
     <!-- FORMULARIO PARA AGREGAR O EDITAR USUARIOS -->
     <div id="delUsuario" title="Borrar / Editar">
