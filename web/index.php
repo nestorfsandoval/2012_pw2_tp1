@@ -40,7 +40,7 @@ session_regenerate_id();
     <body>
     	 <!--DIV QUE CONTIENE EL ENCABEZADO-->
     <div id="todo">
-    <div class="encabezado">
+    <div id="encabezado">
             <!--DIV QUE CONTIENE EL LOGO-->
         <div class="izquierda">
             <img src="img/logo.png" />
@@ -69,10 +69,9 @@ session_regenerate_id();
                         ?>
         </div>
     </div>
-        <!--FIN DIV QUE CONTIENE EL ENCABEZADO-->
-                 
+    <!--COMIENZA CUERPO DE PAGINA-->        
     <div id="cuerpo">
-        <?php include $contenido;?>
+        <?php include $contenido;?> 
     </div>
     <div id="pie">
                  

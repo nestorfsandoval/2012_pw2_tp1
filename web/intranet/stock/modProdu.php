@@ -7,7 +7,7 @@
         <input type="text" disabled="true" id="cod" value="<?echo $produ['idproducto']?>"/><br/>
         <label class="formulario">T&iacute;tulo</label>
         <input type="text" name="titulo" id="tit" value="<?echo $produ['titulo']?>" ><br/>
-        <select class="formulario" name="interprete" id="interprete" >
+        <select class="artista" name="interprete" id="interprete" >
             <?php
             foreach($artista as $id => $art):
                 if($art['nombre']==$produ['nombre'])
@@ -16,11 +16,12 @@
                     echo '<option value='.$art['idartista'].'>'.$art['nombre'].'</option>';
                 endforeach;
             ?>
+            <option value="nuevo">-->Agregar Artista<--</option>
         </select>
         <label class="formulario">A&ntilde;o:</label>
         <input type="text" name="anio" id="anual" value="<?echo $produ['anio']?>"><br/>
         <label class="formulario">Genero:</label>
-        <select class="formulario" name="genero" id="genero" >
+        <select class="genero" name="genero" id="genero" >
             <?php 
             foreach($genero as $id => $gro):
                 //SI PRODUCTO ES IGUAL OPCION LO DEJO SELECCIONADO
@@ -31,6 +32,7 @@
                 }
                 endforeach;   
             ?>
+            <option value="nuevo">-->Agregar Genero<--</option>
         </select>
         <label class="formulario">Cantidad:</label>
         <input type="text" name="cant" id="cantidad" value="<?echo $produ['stock']?>"><br/>

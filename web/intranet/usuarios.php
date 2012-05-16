@@ -1,11 +1,39 @@
 <?php 
 
-if(isset($_POST['user'])){
+ //SI ESTA SETEADO nCiud ,PREGUNTO SI YA EXISTE, DE ACUERDO A ESTO ,AGREGO NUEVO ARTISTA O NO
+    if (isset($_GET['nCiud']) && ($_GET['nCiud']!='')){
+        $ciudad=$_GET['nCiud'];
+        $prov=$_GET['prov'];
+        $cp=$_GET['cp'];
+        $qry="SELECT * FROM ciudad WHERE nomCiudad='$ciudad' AND id_provincia='$prov'";     
         
+        //si no existe ciudad la cargo
+        if(!existenDato($qry, $conectar))
+        {
+            $sqlArt="INSERT INTO ciudad (id_provincia,nomCiudad,cp) values(?,?,?)";
+            $stmt = $conectar->prepare($sqlArt);
+            $stmt->bindParam(1, $prov,PDO::PARAM_INT);
+            $stmt->bindParam(2, $ciudad,PDO::PARAM_STR);
+            $stmt->bindParam(3, $cp,PDO::PARAM_STR);
+            
+            try{
+            $stmt->execute();
+            }catch (PDOException $e){
+                echo 'Error, no se pudo cargar el artista.';
+            }
+        }
+        
+    }
+
+//SI ESTA SETEADO USER  SE TRATA DE AGREGAR USUARIO
+if(isset($_POST['user'])){
+    //foreach para desarmar la cadena que le paso a $_POST['ciudad'], ya que contiene codigo de ciudad y de prov
+        $city=explode(',', $_POST['ciudad']);
+
         //si si esta seteado acc y es igual a 'nuevo', sql=insert
         if(($_POST['acc']=='nuevo')){
             $pass=md5($_POST['pass']);
-            $sql = 'INSERT INTO empleado (apellido,nombre,user,pass,mail,id_ciudad,id_prov) values(?,?,?,?,?,?,?)';
+            $sql = 'INSERT INTO empleado (apellido,nombre,user,pass,mail,id_ciudad,id_prov,idprivilegio) values(?,?,?,?,?,?,?,?)';
         }
         //si si esta seteado acc y es igual a 'editar', sql=update
         if($_POST['acc']=='editar'){
@@ -18,8 +46,9 @@ if(isset($_POST['user'])){
         $stmt->bindParam(3, $_POST['user'],PDO::PARAM_STR);
         $stmt->bindParam(4, $pass,PDO::PARAM_STR);
         $stmt->bindParam(5, $_POST['mail'], PDO::PARAM_STR);
-        $stmt->bindParam(6, $_POST['ciudad'], PDO::PARAM_INT);
-        $stmt->bindParam(7, $_POST['prov'], PDO::PARAM_INT);
+        $stmt->bindParam(6, $city[0], PDO::PARAM_INT);
+        $stmt->bindParam(7, $city[1], PDO::PARAM_INT);
+        $stmt->bindParam(8, $_POST['privi'], PDO::PARAM_INT);
         
        try{
             $stmt->execute();
@@ -28,6 +57,26 @@ if(isset($_POST['user'])){
         }
    }    
    
+//CONSULTA DE LISTAR PRIVILEGIOS
+$consulta="SELECT * FROM privilegios";
+$privilegios= consultar($consulta,$conectar);
+
+
+$consulta="SELECT id_emp,concat(apellido,',',nombre)AS nombre,user,mail,concat(nomCiudad,',',provincia) AS vive,descripcion AS privi
+            FROM empleado e
+            JOIN ciudad c ON e.id_ciudad=c.idciudad
+            JOIN provincia p ON e.id_prov=p.idprovincia
+            JOIN privilegios n ON e.idprivilegio=n.idprivilegios";
+$listUser=  consultar($consulta, $conectar);
+
+//CONSULTAS PARA LISTAR PROVINCIAS
+$consulta="SELECT * FROM provincia";
+$provincias= consultar($consulta,$conectar);
+//CONSULTAS PARA LISTAR ciudades
+$consulta="SELECT idciudad,id_provincia,concat(nomCiudad,',',provincia)AS ciudad 
+            FROM ciudad c
+            JOIN provincia p ON c.id_provincia = p.idprovincia";
+$ciudades= consultar($consulta,$conectar);
 ?>
 
 <!--CUERPO-->
@@ -35,82 +84,51 @@ if(isset($_POST['user'])){
 	<!-- CONTENEDOR -->
     <div class="contenedor">
 	<fieldset>
-		<legend>Usuarios en D&eacute;ficit</legend>
+		<legend>Usuarios de Sistema</legend>
 		<table>
 		<tr class="titulos">
-			<td>NOMBRE Y APELLIDO</td><td>APODO</td><td>TELEFONO</td><td>DOMICILIO</td>
+			<td>Nombre</td>
+                        <td>Usuario</td>
+                        <td>Rango</td>
+                        <td>Direccion</td>
+                        <td>Acciones</td>
 		</tr>
+                 <?php
+                foreach($listUser as $id => $user):
+                ?>
 		<tr class="listado">
-			<td>Luis Torres</td><td>El Mala Leche</td><td>2965-15367899</td><td>Playa Union-Chubut</td>
+			<td><?php echo $user['nombre']?></td>
+                        <td><?php echo $user['user']?></td>
+                        <td><?php echo $user['privi']?></td>
+                        <td><?php echo $user['vive']?></td>
+                        <td><button data-form="form-editar-user-<?php echo $user['id_emp']?>" class="editar" title="Editar Usuario"></button><button class="borrar" title="Borrar Usuario"></button></td>
 		</tr>
-		<tr class="listado">
-			<td>Luis Arrix</td><td>El Pirata</td><td>2965-15534277</td><td>Rawson-Chubut</td>
-		</tr>
-		<tr class="listado">
-			<td>Leonardo Quiroga</td><td>Leo y lso del Fuego</td><td>2965-15662733</td><td>Rawson-Chubut</td>
-		</tr>
-		<tr class="listado">
-			<td>Enzo Ana</td><td>El Rojo Nunca Gana</td><td>2965-15747462</td><td>Trelew-Chubut</td>
-		</tr>
-		<tr class="listado">
-			<td>Florencia Morado</td><td>FlopiSubmarino</td><td>2965-15663739</td><td>Playa Union-Chubut</td>
-		</tr>
-		<tr class="listado">
-			<td>Arnaldo Ardiles</td><td>TristeHinchaDeUnion</td><td>2965-15674453</td><td>Trelew-Chubut</td>
-		</tr>
-		<tr class="listado">
-			<td>Viviana Jarra</td><td>Vivi</td><td>2965-15453434</td><td>Trelew-Chubut</td>
-		</tr>
+                <?php
+                endforeach;
+                ?>
 		</table>
 	</fieldset>
     </div>
     <!-- PANEL -->
     <div class="panel">
+        
+        <?php
+        if($_SESSION['nivel']== 0){
+        ?>
 	<fieldset>
-		<legend>Gesti&oacute;n de Usuarios</legend>
-			<input id="newUser" type="button" name="add_user" value="Nuevo Usuario"/>
-			<input id="delUser" type="button" name="del_user" value="Borrar / Editar"/>
+            <legend>Gesti&oacute;n de Usuarios</legend>
+            <input id="newUser" type="button" name="add_user" value="Nuevo Usuario"/>
+            <input id="modUser" type="button" name="del_user" value="Editar Usuario"/>
 	</fieldset>
+        <?php
+        }
+        ?>
     </div>
     <?php
         require 'usuarios/nuevoUser.php';
+        require 'usuarios/modificarUser.php';
     ?>
-			
-    <!-- FORMULARIO PARA AGREGAR O EDITAR USUARIOS -->
-    <div id="delUsuario" title="Borrar / Editar">
-        	<p>Seleccione Usuario</p>
-		<form action="" method="POST">
-			<select id="selecccion">
-				<option value="1">Stock-Pepe</option>
-				<option value="2">Compras-Pepa</option>
-				<option value="3">Ventas-Mario</option>
-				<option value="4">Admin-Jose</option>
-			</select>
-		</form>
-			
-		<div id="modUsuario" title="Modificar Usuario">
-			<form class="panelUser" action="mod_user.html" method="GET">
-				<label class="formulario">Nombre:</label>
-				<input type="text" name="nombre" value="Sapo Pepe"><br/>
-				<label class="formulario">Usuario:</label>
-				<input type="text" name="user" value="Stock-Pepe"><br/>
-				<label class="formulario">Contrase&ntilde;a:</label>
-				<input type="text" name="pass" value="536355"><br/>
-			</form>	
-		</div>
-    </div>
 </div>
 <?php
-    echo 'prueba de coneccion';
-    $query="select * from provincia";
-    try{
-    $statement= $pdo->query($query);
-    }  catch (PDOException $e){
-        echo 'Error en la consulta:'.$e->getMessage();
-    }
-    $resultado=$statement->fetch(PDO::FETCH_ASSOC);    
-    
-    foreach($resultado as $codigo=>$prov):
-        echo $codigo['idprovincia'].' = '.$prov['provincia'];
-    endforeach;
+    require 'usuarios/funcionesExtras.php';
 ?>

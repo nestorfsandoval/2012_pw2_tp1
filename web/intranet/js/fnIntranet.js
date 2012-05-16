@@ -72,8 +72,9 @@ $(function() {
 				
 									bValid = bValid && checkLength( name, "Nombre", 3, 40 );
 									bValid = bValid && checkLength( user, "Usuario", 6, 16 );
-									bValid = bValid && checkLength( password, "Contraseña", 5, 16 );
-				
+									bValid = bValid && checkLength( password, "Contrase&ntilde;a", 5, 16 );
+                                                                        console.log("largo:"+$("#ciudad").val().length)
+                                                                        
 									bValid = bValid && checkRegexp( name, /^[\w\-\s\dÀÈÌÒÙàèìòùÁÉÍÓÚÝáéíóúýÂÊÎÔÛâêîôûÃÑÕãñõÄËÏÖÜäëïöüçÇßØøÅåÆæÞþÐð]+$/i, "Nombre puede contener valores de a-z, 0-9, guiones bajos, y debe comenzar con una letra." );
 									bValid = bValid && checkRegexp( user, /^[\w\-\s\dÀÈÌÒÙàèìòùÁÉÍÓÚÝáéíóúýÂÊÎÔÛâêîôûÃÑÕãñõÄËÏÖÜäëïöüçÇßØøÅåÆæÞþÐð]+$/i, "Usuario puede contener valores de a-z, 0-9, guiones bajos, y debe comenzar con una letra." );
 									bValid = bValid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Contraseña solo permite caracateres desde a-z y desde 0-9" );
@@ -96,10 +97,10 @@ $(function() {
 		
 		
 		//BORRAR & MODIFICAR--------------------------------------------------------
-		$( "#delUser" )
+		$( "#modUser" )
 			.button()
 			.click(function() {
-				$( "#delUsuario" ).dialog( "open" );
+				$( "#modUsuario" ).dialog( "open" );
 			});
 			
 		$( "#delUsuario" ).dialog({
@@ -132,7 +133,6 @@ $(function() {
 			buttons:{
 				Actualiza: function(){
 					$(this).dialog("close");//cierra Actualizar
-					$( "#delUsuario" ).dialog( "close" );//Cierra Cancelar
 				},
 				Cancelar: function(){
 					$(this).dialog("close");//cierra actualizar
@@ -143,6 +143,37 @@ $(function() {
 				allFields.val("").removeClass("ui-state-error");
 			}
 		});
+                
+                //NUEVO ARTISTA
+                $(".ciudad").bind('change',function(){
+		if($(".ciudad").val()=='nueva'){
+			console.log('quiere agregar registro');
+			$( "#nuevaCiudad" ).dialog( "open" );
+                    }
+                });
+                
+                var ciudad=$("#nCiud");
+                $( "#nuevaCiudad").dialog({
+			autoOpen: false,
+			height: 261,
+			width: 218,
+			modal: true,
+			buttons: {
+				"Agregar Artista": function() {
+                                    $( "#nuevaCiudad").submit();
+                                    ciudad.val("");
+                                    $( this ).dialog( "close" );
+				},
+				Cancel: function() {
+                                    artista.val("");
+                                    $( this ).dialog( "close" );
+				}
+			},
+			close: function() {
+                            ciudad.val( "" ).removeClass( "ui-state-error" );
+			}
+		});
+                
 		
 		//---------------------------------STOCK-----------------------------------------
 		//AGREGAR PRODUCTO---------------------------------------------------------------
@@ -200,8 +231,78 @@ $(function() {
 				allFields.val("").removeClass("ui-state-error");
 			}
 		});
-		
-		
+		//NUEVO ARTISTA
+                $(".artista").bind('change',function(){
+		if($(".artista").val()=='nuevo'){
+			console.log('quiere agregar registro');
+			$( "#nuevoArtista" ).dialog( "open" );
+		}
+                });
+                
+                $(".nartista").bind('change',function(){
+		if($(".nartista").val()=='nuevo'){
+			console.log('quiere agregar registro');
+			$( "#nuevoArtista" ).dialog( "open" );
+		}
+                });
+                
+                var artista=$("#nArtista");
+                $( "#nuevoArtista").dialog({
+			autoOpen: false,
+			height: 150,
+			width: 250,
+			modal: true,
+			buttons: {
+				"Agregar Artista": function() {
+                                    $( "#nuevoArtista").submit();
+                                    artista.val("");
+                                    $( this ).dialog( "close" );
+				},
+				Cancel: function() {
+                                    artista.val("");
+                                    $( this ).dialog( "close" );
+				}
+			},
+			close: function() {
+                            artista.val( "" ).removeClass( "ui-state-error" );
+			}
+		});
+		//NUEVO GENERO
+                $(".genero").bind('change',function(){
+		if($(".genero").val()=='nuevo'){
+			console.log('quiere agregar registro');
+			$( "#nuevoGenero" ).dialog( "open" );
+		}
+                });
+                
+                $(".ngenero").bind('change',function(){
+		if($(".ngenero").val()=='nuevo'){
+			console.log('quiere agregar registro');
+			$( "#nuevoGenero" ).dialog( "open" );
+		}
+                });
+                
+                var genero=$("#nGenero");
+                $( "#nuevoGenero").dialog({
+			autoOpen: false,
+			height: 200,
+			width: 250,
+			modal: true,
+			buttons: {
+				"Agregar Artista": function() {
+                                    $( "#nuevoGenero").submit();
+                                    genero.val("");
+                                    $( this ).dialog( "close" );
+				},
+				Cancel: function() {
+                                    genero.val("");
+                                    $( this ).dialog( "close" );
+				}
+			},
+			close: function() {
+                            genero.val( "" ).removeClass( "ui-state-error" );
+			}
+		});
 		
 		//SUMAR A DISCO----------------------------------------------------------------
 		$(".addStock").css("display","none");	
@@ -219,11 +320,8 @@ $(function() {
 			.button()
 			.click(function() {
                             var form_id = $(this).data('form');
-                            
-                            $("#"+form_id).dialog("open");
+                                $("#"+form_id).dialog("open");
 			});
-                        
-                //$("#editarDisco").css("display","none");
 		
 		$(".editarDisco").dialog({
 			autoOpen:false,
@@ -233,7 +331,7 @@ $(function() {
 			buttons:{
 				Agregar: function(){
 								var bValid = true;
-									titulo = $( "#tit" ),
+									/*titulo = $( "#tit" ),
 									interprete = $( "#inter" ),
 									anio = $( "#anual" ),
 									cant = $( "#cantidad" ),
@@ -245,20 +343,21 @@ $(function() {
 				
 									bValid = bValid && checkLength( titulo, "Titulo", 1, 40 );
 									bValid = bValid && checkLength( interprete, "Interprete", 2, 20 );
-									bValid = bValid && checkLength( anio, "Año", 1, 4 );
+									bValid = bValid && checkLength( anio, "A&ntilde;o", 1, 4 );
 									bValid = bValid && checkLength( cant, "Cantidad", 1, 9 );
 									bValid = bValid && checkLength( genero, "Genero", 2, 30 );
 									bValid = bValid && checkLength( valor, "Precio", 1, 20 );
 									
-									bValid = bValid && checkRegexp( titulo, /^[\w\-\s\dÀÈÌÒÙàèìòùÁÉÍÓÚÝáéíóúýÂÊÎÔÛâêîôûÃÑÕãñõÄËÏÖÜäëïöüçÇßØøÅåÆæÞþÐð]+$/i, "Título puede contener valores de a-z, 0-9, guiones bajos, y debe comenzar con una letra." );
-									bValid = bValid && checkRegexp( interprete, /^[\w\-\s\dÀÈÌÒÙàèìòùÁÉÍÓÚÝáéíóúýÂÊÎÔÛâêîôûÃÑÕãñõÄËÏÖÜäëïöüçÇßØøÅåÆæÞþÐð]+$/i, "Interprete puede contener valores de a-z, 0-9, guiones bajos, y debe comenzar con una letra." );
-									bValid = bValid && checkRegexp( anio, /^[0-9]+$/i, "Año permite solo valores numericos" );
+									bValid = bValid && checkRegexp( titulo, /^[\w\-\s\d?????????????????????????????????????????????????????????????]+$/i, "T?tulo puede contener valores de a-z, 0-9, guiones bajos, y debe comenzar con una letra." );
+									bValid = bValid && checkRegexp( interprete, /^[\w\-\s\d?????????????????????????????????????????????????????????????]+$/i, "Interprete puede contener valores de a-z, 0-9, guiones bajos, y debe comenzar con una letra." );
+									bValid = bValid && checkRegexp( anio, /^[0-9]+$/i, "A?o permite solo valores numericos" );
 									bValid = bValid && validaAnio(anio);
 									bValid = bValid && checkRegexp( cant, /^[0-9]+$/i, "Cantidad permite solo valores numericos" );
-									bValid = bValid && checkRegexp( genero, /^[\w\-\s\dÀÈÌÒÙàèìòùÁÉÍÓÚÝáéíóúýÂÊÎÔÛâêîôûÃÑÕãñõÄËÏÖÜäëïöüçÇßØøÅåÆæÞþÐð]+$/i, "Género puede contener valores de a-z, 0-9, guiones bajos, y debe comenzar con una letra." );
+									bValid = bValid && checkRegexp( genero, /^[\w\-\s\d?????????????????????????????????????????????????????????????]+$/i, "G?nero puede contener valores de a-z, 0-9, guiones bajos, y debe comenzar con una letra." );*/
 									
 									if ( bValid ) {
-										alert("El Disco se actualizo Correctamente.")
+                                                                                $(this).submit(),
+										alert("El Disco se actualizo Correctamente."),
 											$( this ).dialog( "close" );
 										}
 				},

@@ -1,17 +1,47 @@
 <?php
-//CONSULTAS PARA OPCIONES DE SELECT
-
-    //CONSULTA DE LISTA DE GENEROS DISPONIBLES
-    $consulta="SELECT * FROM genero";
-    $genero= consultar($consulta,$conectar);
-    
-    //CONSULTA DE LISTA DE ARTISTAS DISPONIBLES
-    $consulta="SELECT * FROM artista";
-    $artista= consultar($consulta,$conectar);
-
-    //SI LA ACCION ESTA SETEADA Y ES IGUAL A NUEVO ,CARGO EL PRODUCTO NUEVO
-    if(isset($_GET['acc'])){
+    //SI ESTA SETEADO nArt ,PREGUNTO SI YA EXISTE, DE ACUERDO A ESTO ,AGREGO NUEVO ARTISTA O NO
+    if (isset($_GET['nArt']) && ($_GET['nArt']!='')){
+        $nombre=$_GET['nArt'];
+        $qry="SELECT * FROM artista WHERE nombre='$nombre'";     
         
+        if(!$valida=existenDato($qry, $conectar))
+        {
+            $sqlArt="INSERT INTO artista (nombre) values(?)";
+            $stmt = $conectar->prepare($sqlArt);
+            $stmt->bindParam(1, $nombre,PDO::PARAM_STR);
+            
+            try{
+            $stmt->execute();
+            }catch (PDOException $e){
+                echo 'Error, no se pudo cargar el artista.';
+            }
+        }
+        
+    }
+    
+    //SI ESTA SETEADO nGen ,PREGUNTO SI YA EXISTE, DE ACUERDO A ESTO ,AGREGO NUEVO GENERO O NO
+    if (isset($_GET['nGen']) && ($_GET['nGen']!='')){
+        $nombre=$_GET['nGen'];
+        $qry="SELECT * FROM genero WHERE tipo='$nombre'";     
+        
+        if(!$valida=existenDato($qry, $conectar))
+        {
+            $sqlArt="INSERT INTO genero (tipo,descripcion) values(?,?)";
+            $stmt = $conectar->prepare($sqlArt);
+            $stmt->bindParam(1, $nombre,PDO::PARAM_STR);
+            $stmt->bindParam(2, $_GET['desc'],PDO::PARAM_STR);
+            
+            try{
+            $stmt->execute();
+            }catch (PDOException $e){
+                echo 'Error, no se pudo cargar el G?nero.';
+            }
+        }
+        
+    }
+    
+    //SI LA ACCION ESTA SETEADA Y ES IGUAL A NUEVO ,CARGO EL PRODUCTO NUEVO
+    if(isset($_GET['acc'])){        
         //si si esta seteado acc y es igual a 'nuevo', sql=insert
         if(($_GET['acc']=='nuevo')){
             $sql = 'INSERT INTO producto (titulo,idartista,idgenero,anio,stock,precio) values(?,?,?,?,?,?)';
@@ -32,13 +62,21 @@
         if($_GET['acc']=='editar'){
         $stmt->bindParam(7, $_GET['cod'], PDO::PARAM_INT);
         }
-        //echo 'UPDATE producto SET titulo='.$_GET['titulo'].', idartista='.$_GET['interprete'].',idgenero='.$_GET['genero'].',anio='.$_GET['anio'].',stock='.$_GET['cant'].',precio='.$_GET['valor'].' WHERE idproducto='.$_GET['cod'];
+        
        try{
             $stmt->execute();
         }catch (PDOException $e){
             echo 'Error no se pudieron cargar los datos '. $e->getMessage();
         }
    }    
+   
+    //CONSULTA DE LISTA DE GENEROS DISPONIBLES
+    $consulta="SELECT * FROM genero";
+    $genero= consultar($consulta,$conectar);
+    
+    //CONSULTA DE LISTA DE ARTISTAS DISPONIBLES
+    $consulta="SELECT * FROM artista";
+    $artista= consultar($consulta,$conectar);
    
    //CONSULTA PARA LISTADO DE ARTICULOS
     $consulta="SELECT 
@@ -106,4 +144,6 @@
         </table>
     </fieldset>	
 </div>	
-<!--DIV DE MODIFICACION-->
+<?php
+require 'stock/funcionesExtras.php';
+?>

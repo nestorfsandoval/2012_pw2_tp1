@@ -10,11 +10,11 @@ require_once '../funciones/conectar.php';
     preg_match( "/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})/", $lafecha, $ftrunc); 
     $fhasta=$ftrunc[3]."-".$ftrunc[2]."-".$ftrunc[1]; 
 
-    $query = "SELECT * FROM compra WHERE fecha >= '".$fdesde."' AND fecha <='". $fhasta."'" ;
+    $query = "SELECT * FROM registroCompra WHERE fecha >= '".$fdesde."' AND fecha <='". $fhasta."'" ;
     $resultados = consultar($query,$conectar);
 
   }else{
-   $query = "SELECT * FROM compra" ;
+   $query = "SELECT * FROM registroCompra" ;
     $resultados = consultar($query,$conectar);
     consultar($query,$conectar);
   }

@@ -21,4 +21,16 @@ function consultar($query,$conectar){
     return $row;
 }
 
+function existenDato($query,$conectar){
+    /*
+     * recibe un SELECT
+     * valida que un dato ya exista
+     * devuelve un true o false
+     */
+    $row= consultar($query, $conectar);
+    if(count($row) == 1)
+        return 1;
+    else
+        return 0;
+}
 ?>

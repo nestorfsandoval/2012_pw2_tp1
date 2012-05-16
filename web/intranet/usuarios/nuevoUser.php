@@ -14,8 +14,22 @@
             <label>Correo Electr&oacute;nico:</label>
             <input id="user" type="email" name="mail"><br/>
             <label>Ciudad:</label>
-            <input id="user" type="text" name="ciudad"><br/>
-            <label>Provincia:</label>
-            <input id="user" type="text" name="prov"><br/>
+            <select class="ciudad" name="ciudad" id="ciudad">
+                <option value="0">-->Eliga una Ciudad<--</option>
+            <?php 
+                foreach($ciudades as $id => $city):
+                    echo '<option value="'.$city['idciudad'].','.$city['id_provincia'].'">'.$city['ciudad'].'</option>';
+                endforeach;
+            ?>
+                <option value="nueva">-->Nueva Ciudad<--</option>
+            </select>
+            <label>Privilegios:</label>
+            <select name="privi">
+            <?php 
+            foreach($privilegios as $id => $privi):
+                echo '<option value='.$privi['idprivilegios'].'>'.$privi['descripcion'].'</option>';
+            endforeach;
+            ?>
+            </select>
 	</form>
     </div>

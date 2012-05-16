@@ -6,24 +6,26 @@
     <label class="formulario">Titulo:</label>
     <input type="text" name="titulo" id="titulo"><br/>
     <label class="formulario">Interprete:</label>
-    <select class="formulario" name="interprete" id="interprete" >
+    <select class="nartista" name="interprete" id="interprete" >
             <?php 
             foreach($artista as $id => $art):
                 echo '<option value='.$art['idartista'].'>'.$art['nombre'].'</option>';
             endforeach;
             ?>
+         <option value="nuevo">-->Agregar Artista<--</option>
     </select>
     <label class="formulario">A&ntilde;o:</label>
     <input type="text" name="anio" id="anio"><br/>
     <label class="formulario">Cant. Inicial:</label>
     <input type="text" name="cant" id="cant"><br/>
     <label class="formulario">Genero:</label>
-    <select class="formulario" name="genero" id="genero" >
+    <select class="ngenero" name="genero" id="genero" >
             <?php
             foreach($genero as $id => $gro):
                 echo '<option value='.$gro['idgenero'].'>'.$gro['tipo'].'</option>';
             endforeach;
             ?>
+        <option value="nuevo">-->Agregar Genero<--</option>
     </select>
     <label class="formulario">Precio:</label>
     <input type="text" name="valor" id="valor"><br/>
