@@ -55,7 +55,7 @@ session_regenerate_id();
                     </ul>
             
                     <?php
-                    if(isset($_SESSION['user_ok'])){
+                    if(isset($_SESSION['user_public'])){
                         echo 'Bienvenido'.$_SESSION['user_public'].' | <a class="sesion" href="../index.php?logout=on">Desconectar</a>';
                     }else{
                     echo '<form action="index.php" method="POST" id="login">
@@ -68,6 +68,7 @@ session_regenerate_id();
                     }
                         ?>
         </div>
+        <div id="mensajeSesion"><?php echo $mensajeLogin?></div>    
     </div>
     <!--COMIENZA CUERPO DE PAGINA-->        
     <div id="cuerpo">

@@ -1,4 +1,23 @@
 <?php 
+    if(isset($_POST['deshabilitar'])){
+        
+        if($_SESSION['iduser'] == $_POST['deshabilitar']){
+            echo '<script>
+                    alert("Usted no pude deshabilitar su usuario mientras lo esta usando.");
+                </script>';
+        }else{
+            $sql = 'UPDATE empleado SET habilitado=0 WHERE id_emp=? ';
+            $stmt = $conectar->prepare($sql);
+            $stmt->bindParam(1, $_POST['deshabilitar'],PDO::PARAM_INT);
+
+            try{
+                $stmt->execute();
+            }catch (PDOException $e){
+                echo 'Error, no se pudo deshabitar el Usuario.';
+            }
+        }
+        
+    }
 
  //SI ESTA SETEADO nCiud ,PREGUNTO SI YA EXISTE, DE ACUERDO A ESTO ,AGREGO NUEVO ARTISTA O NO
     if (isset($_GET['nCiud']) && ($_GET['nCiud']!='')){
@@ -62,11 +81,12 @@ $consulta="SELECT * FROM privilegios";
 $privilegios= consultar($consulta,$conectar);
 
 
-$consulta="SELECT id_emp,concat(apellido,',',nombre)AS nombre,user,mail,concat(nomCiudad,',',provincia) AS vive,descripcion AS privi
+$consulta="SELECT id_emp,CONCAT(apellido,',',nombre)AS nombreAp,user,apellido,nombre,mail,CONCAT(id_ciudad,',',id_prov) AS codCiudad ,idprivilegio,CONCAT(nomCiudad,',',provincia) AS vive,descripcion AS privi
             FROM empleado e
             JOIN ciudad c ON e.id_ciudad=c.idciudad
             JOIN provincia p ON e.id_prov=p.idprovincia
-            JOIN privilegios n ON e.idprivilegio=n.idprivilegios";
+            JOIN privilegios n ON e.idprivilegio=n.idprivilegios
+            WHERE habilitado=1";
 $listUser=  consultar($consulta, $conectar);
 
 //CONSULTAS PARA LISTAR PROVINCIAS
@@ -97,11 +117,15 @@ $ciudades= consultar($consulta,$conectar);
                 foreach($listUser as $id => $user):
                 ?>
 		<tr class="listado">
-			<td><?php echo $user['nombre']?></td>
+			<td><?php echo $user['nombreAp']?></td>
                         <td><?php echo $user['user']?></td>
                         <td><?php echo $user['privi']?></td>
                         <td><?php echo $user['vive']?></td>
-                        <td><button data-form="form-editar-user-<?php echo $user['id_emp']?>" class="editar" title="Editar Usuario"></button><button class="borrar" title="Borrar Usuario"></button></td>
+                        <td>
+                            <button data-form="form-editar-user-<?php echo $user['id_emp']?>" class="editarUsuario" title="Editar Usuario"></button>
+                            <button data-form="form-deshabilitar-user-<?php echo $user['id_emp']?>" class="borrarUsuario" title="Borrar Usuario"></button>
+                            <?php require 'usuarios/modificarUser.php';?>
+                        </td>
 		</tr>
                 <?php
                 endforeach;

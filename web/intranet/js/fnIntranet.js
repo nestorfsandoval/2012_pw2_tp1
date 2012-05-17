@@ -97,23 +97,23 @@ $(function() {
 		
 		
 		//BORRAR & MODIFICAR--------------------------------------------------------
-		$( "#modUser" )
+		
+                $( ".editarUsuario , .borrarUsuario" )
 			.button()
 			.click(function() {
-				$( "#modUsuario" ).dialog( "open" );
+                            var form_id = $(this).data('form');
+                                $("#"+form_id).dialog("open");
 			});
-			
-		$( "#delUsuario" ).dialog({
+                
+		$( ".borrarUser" ).dialog({
 			autoOpen: false,
-			height: 230,
+			height: 170,
 			width: 350,
 			modal: true,
 			buttons:{
-				Borrar: function(){
+				Deshabilitar: function(){
+                                        $( this ).submit(),
 					$( this ).dialog("close");
-				},
-				Modificar: function(){
-					$( "#modUsuario" ).dialog( "open");//abre actualizar
 				},
 				Cancelar: function() {
 					$( this ).dialog( "close" );
@@ -125,10 +125,10 @@ $(function() {
 			}
 		});
 		
-		$("#modUsuario").dialog({
+		$(".editarUser").dialog({
 			autoOpen:false,
-			height: 400,
-			width: 350,
+			height: 415,
+			width: 250,
 			modal: true,
 			buttons:{
 				Actualiza: function(){

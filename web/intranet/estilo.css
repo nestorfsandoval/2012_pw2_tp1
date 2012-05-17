@@ -160,7 +160,7 @@ li{
 	background-color:#B0B0B0;
 }
 
-.listado .editar{
+.listado .editarUsuario{
     background-image: url(css/smoothness/images/ui-icons_222222_256x240.png);
     background-position:  -64px -112px;    
     border-radius: 3px;
@@ -168,7 +168,7 @@ li{
     width: 20px;
     
 }
-.listado .borrar{
+.listado .borrarUsuario{
     background-image: url(css/smoothness/images/ui-icons_222222_256x240.png);
     background-position:  -176px -96px;    
     border-radius: 3px;
@@ -225,6 +225,14 @@ margin-left:25px;
 .ui-button-text{font-size:60%;}
 .ui-widget-header {font-size:60%;}
 
-#nuevoArtista label,#nuevoGenero label,#nuevaCiudad label{
+#nuevoArtista label,#nuevoGenero label,#nuevaCiudad label,.editarUser label{
     padding:0px;
+}
+
+.alert{
+    background-image: url(css/smoothness/images/ui-icons_222222_256x240.png);
+    background-position: 0 -144px;
+    height: 14px;
+    width: 18px;
+    display: inline-block;
 }
