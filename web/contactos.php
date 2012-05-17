@@ -1,33 +1,54 @@
-<!--DIV CONTACTO-->
-                  <div id="tabs-5">
-                      <!--DIV QUE CONTIENE EL FORMULARIO DE MENSAJE-->
-                      <div class="center" align="center">
-                          <center> 
-                              <p class="center" id="mensForm">En caso de dudas, reclamos o sugerencias, lo invitamos a completar y enviar el</p> 
-                              <p class="center" id="mensForm">siguiente formulario, y uno de nuestros asesores lo contactara; a la mayor brevedad posible.</p>
-                              <p class="center" id="mensForm">Recuerde que todos los campos marcados con <span style="font-weight: bolder; color: red;">*</span> deben estar completos.</p>                              </br>
-                          </center>
-                          <!--FORMULARIO DE MENSAJE-->
-                          <form method="post">
-                              <p class="center">Nombre y Apellido: <span style="font-weight: bolder; color: red;">*</span><br />
-                                  <input size="30" class="form" name="nomApe" value="" type="text" id="nomApe"/>
-                              </p>
-                              <p class="center">E-Mail: <span style="font-weight: bolder; color: red;">*</span> <br />
-                                  <input size="30" class="form" name="email" value="" type="text" id="email"/>
-                              </p>
-                              <p class="center">Asunto: <span style="font-weight: bolder; color: red;">*</span> <br />
-                                  <input size="30" class="form" name="asunto" value="" type="text" id="asunto"/>
-                              </p>
-                              <p class="center">Mensaje: <span style="font-weight: bolder; color: red;">*</span> <br />
-                                  <textarea name="mensContact" cols="28" rows="9" class="form" id="mensContact"></textarea>
-                              </p>
-                          </form>
-                          <!--FIN FORMULARIO DE MENSAJE-->
-                      </div>
-                      <!--FIN DIV QUE CONTIENE EL FORMULARIO DE MENSAJE-->
-                      <!--BOTON QUE ENVIA EL MENSAJE-->
-                      <center>
-                          <input type="submit" value="Enviar mensaje!" class="formsubmit" id="enviarMensaje"/><br />
-                      </center>
-                  </div>
-                  <!--FIN DIV CONTACTO-->
+	<!--DIV CONTACTO-->
+	<head>
+	<title>Contacto</title>
+	<link rel='stylesheet' href='estilo.css'>
+	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script>
+	<script type="text/javascript" language="Javascript" src="js/delContacto.js"></script>
+	</head>
+	<div id="tabs-5">
+		<?php
+			if(isset($_POST['boton'])){
+				if($_POST['nombre'] == ''){
+					$error1 = '<span class="error">Ingrese su nombre</span>';
+				}else if($_POST['email'] == '' or !preg_match("/^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/",$_POST['email'])){
+					$error2 = '<span class="error">Ingrese un email correcto</span>';
+				}else if($_POST['asunto'] == ''){
+					$error3 = '<span class="error">Ingrese un asunto</span>';
+				}else if($_POST['mensaje'] == ''){
+					$error4 = '<span class="error">Ingrese un mensaje</span>';
+				}else{			
+					$dest = "tu@email.com"; //Email de destino
+					$nombre = $_POST['nombre'];
+					$email = $_POST['email'];
+					$asunto = $_POST['asunto']; //Asunto
+					$cuerpo = $_POST['mensaje']; //Cuerpo del mensaje
+					//Cabeceras del correo
+					$headers = "From: $nombre $email\r\n"; //Quien envia?
+					$headers .= "X-Mailer: PHP5\n";
+					$headers .= 'MIME-Version: 1.0' . "\n";
+					$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n"; //
+					
+					if(mail($dest,$asunto,$cuerpo,$headers)){
+						$result = '<div class="result_ok">Email enviado correctamente :)</a>';	
+						// si el envio fue exitoso reseteamos lo que el usuario escribio:
+						$_POST['nombre'] = '';
+						$_POST['email'] = '';
+						$_POST['asunto'] = '';
+						$_POST['mensaje'] = '';
+					}else{
+						$result = '<div class="result_fail">Hubo un error al enviar el mensaje :(</a>';
+					}
+				}
+			}
+		?>
+			<form class='contacto' method='POST' action=''>
+				<div><label>Tu Nombre:</label><input type='text' class='nombre' name='nombre' value='<?php echo $_POST['nombre']; ?>'><?php echo $error1 ?></div>
+				<div><label>Tu Email:</label><input type='text' class='email' name='email' value='<?php echo $_POST['email']; ?>'><?php echo $error2 ?></div>
+				<div><label>Asunto:</label><input type='text' class='asunto' name='asunto' value='<?php echo $_POST['asunto']; ?>'><?php echo $error3 ?></div>
+				<div><label>Mensaje:</label><textarea rows='6' class='mensaje' name='mensaje'><?php echo $_POST['mensaje']; ?></textarea><?php echo $error4 ?></div>
+				<div><input type='submit' value='Envia Mensaje' class='boton' name='boton'></div>
+				<?php echo $result; ?>
+			</form>
+		</body>
+	</div>
+	<!--FIN DIV CONTACTO-->

@@ -1,8 +1,5 @@
 <?php
-session_start();
-session_regenerate_id();
  require_once 'funciones/conectar.php';
- require_once 'funciones/login.php';
  if(isset($_GET['acc'])){              
                         
                 switch($_GET['acc']){
@@ -40,7 +37,7 @@ session_regenerate_id();
     <body>
     	 <!--DIV QUE CONTIENE EL ENCABEZADO-->
     <div id="todo">
-    <div id="encabezado">
+    <div class="encabezado">
             <!--DIV QUE CONTIENE EL LOGO-->
         <div class="izquierda">
             <img src="img/logo.png" />
@@ -53,26 +50,19 @@ session_regenerate_id();
                         <li><a href="?acc=4">Como comprar</a></li>
                         <li><a href="?acc=5">Contactos</a></li>
                     </ul>
-            
-                    <?php
-                    if(isset($_SESSION['user_public'])){
-                        echo 'Bienvenido'.$_SESSION['user_public'].' | <a class="sesion" href="../index.php?logout=on">Desconectar</a>';
-                    }else{
-                    echo '<form action="index.php" method="POST" id="login">
-                            <label>Usuario:</label>
-                            <input name="user" value="" type="text" id="user"/>
-                            <label>Contrase&ntildea:</label>
-                            <input name="pass" value="" type="password" id="pass"/>
-                            <button><i class="loguear"></i></button>
-                          </form>';
-                    }
-                        ?>
+                    <form action="index.php" method="POST" id="login">
+                        <label>Usuario:</label>
+                        <input name="user" value="" type="text" id="user"/>
+                        <label>Contrase&ntildea:</label>
+                        <input name="pass" value="" type="password" id="pass"/>
+                        <button><i class="loguear"></i></button>
+                    </form>
         </div>
-        <div id="mensajeSesion"><?php echo $mensajeLogin?></div>    
     </div>
-    <!--COMIENZA CUERPO DE PAGINA-->        
+        <!--FIN DIV QUE CONTIENE EL ENCABEZADO-->
+                 
     <div id="cuerpo">
-        <?php include $contenido;?> 
+        <?php include $contenido;?>
     </div>
     <div id="pie">
                  

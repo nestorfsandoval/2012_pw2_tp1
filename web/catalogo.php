@@ -13,9 +13,14 @@ $listado= consultar($consulta, $conectar);
 
 ?>
 
+<h2 align='center'>Catalogo de Discos [Actualizado al <?php echo date('d/m/Y');?>]</h2>
 
 <table border = "1">
-  
+	
+		<th> Artista</th>
+		<th> Titulo</th>
+		<th> Genero</th>
+		
   <?php foreach($listado as $id => $produ):?>
   
         <tr>
