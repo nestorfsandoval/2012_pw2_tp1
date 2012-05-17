@@ -1,15 +1,12 @@
+
 body{background-image: url("img/back02.png"); 
      color: white; 
     font-family: helvetica;
 }
-
-
 #todo{
     margin: auto;
     width: 1024px;
-    background-color: transparent;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px #CCCCCC;
+    
 }
 #menu {
     margin:auto;
@@ -57,7 +54,7 @@ body{background-image: url("img/back02.png");
 }
 
 #login button{
-    background-image: url(css/custom-theme/images/ui-icons_222222_256x240.png);
+	background-image: url(css/custom-theme/images/ui-icons_222222_256x240.png);
     background-position:  -144px -96px;    
     border-bottom: 1px;
     border-radius: 10px;    
@@ -65,54 +62,175 @@ body{background-image: url("img/back02.png");
     width: 20px;
 }
 
-     
-
-#cuerpo img{
-padding: 4px;
-border: 1px solid #ECECDE;
-background-color: background;
-}
-
 #mensajeSesion{
     float: right;
 }
 
-/*a{color:white; text-decoration:none;}
+.tarjetas{
+	
+	text-align: left;
+	font-weight: bold;
+	font-size: 16px;
+	font-family: helvetica;
+}
 
-a:hover{color: red; text-decoration:none;}
+.centro{
+	font-family: "Helvetica", Helvetica;
+	font-weight: bold;
+	font-size: 16px;
+}
 
-div.encabezado {clear:both; width:1080px; margin:auto;}
+.proveedores{
+	text-align: center;
+	color:black;
+	box-shadow: 2px 5px 5px #B5C1C5, 10px 10px 5px 5px #EEF5F7 inset;
+	border-radius: 6px 6px 6px 6px;
+	background-color: white;
+}
 
-div.menu{color:white; font-weight:bold; clear:both; width:100%; margin:auto; text-align:center; font-size: 22px;}
+.img_prov{
+	
+	padding: 16px 40px;
+	margin-left:auto%;
 
-div.izquierda {float: left; padding: 10px 10px 0px 10px;}
+}
+.loguear{
+    background-image: url(css/custom-theme/images);
+    background-position:  -144px -96px;
+        
+}
 
-div.centro{color:white;	clear:none; width:100%px; text-align:justify; font-size:20px; margin:auto;}
+.contacto{
+	border: 1px solid #CED5D7;
+	border-radius: 6px;
+	padding: 45px 45px 20px;
+	margin-top: 50px;
+	background-color: white;
+	box-shadow: 0px 5px 10px #B5C1C5, 0 0 0 10px #EEF5F7 inset;
+}
+.contacto label{
+	display: block; 
+	font-weight: bold;
+	color: black;
+}
+.contacto div{
+	margin-bottom: 15px;
+}
+.contacto input[type='text'], .contacto textarea{
+	padding: 7px 6px;
+	width: 350px;
+	border: 1px solid #CED5D7;
+	resize: none;
+	box-shadow:0 0 0 3px #EEF5F7;
+	margin: 5px 0;
+}
+.contacto input[type='text']:focus, .contacto textarea:focus{
+	outline: none;
+	box-shadow:0 0 0 3px #dde9ec;
+}
+.contacto input[type='text'].invalido, .contacto textarea.invalido{
+	box-shadow:0 0 0 3px #FFC9C9;
+}
+.contacto input[type='submit']{
+	border: 1px solid #CED5D7;
+	box-shadow:0 0 0 3px #EEF5F7;
+	padding: 8px 16px;
+	border-radius: 20px;
+	font-weight: bold;
+	text-shadow: 1px 1px 0px white;
+	
+	background: #e4f1f6; 
+	background: -moz-linear-gradient(top, #e4f1f6 0%, #cfe6ef 70%);
+	background: -webkit-linear-gradient(top, #e4f1f6 0%,#cfe6ef 70%); 
+}
+.contacto input[type='submit']:hover{
+	background: #edfcff; 
+	background: -moz-linear-gradient(top, #edfcff 0%, #cfe6ef 70%);
+	background: -webkit-linear-gradient(top, #edfcff 0%,#cfe6ef 70%); 
+}
+.contacto input[type='submit']:active{
+	background: #cfe6ef; 
+	background: -moz-linear-gradient(top, #cfe6ef 0%, #edfcff 70%);
+	background: -webkit-linear-gradient(top, #cfe6ef 0%,#edfcff 70%);
+}
+.error{
+    background-color: #BC1010;
+    border-radius: 4px 4px 4px 4px;
+    color: white;
+    font-weight: bold;
+    margin-left: 16px;
+    margin-top: 6px;
+    padding: 6px 12px;
+    position: absolute;
+}
+.error:before{
+    border-color: transparent #BC1010 transparent transparent;
+    border-style: solid;
+    border-width: 6px 8px;
+    content: "";
+    display: block;
+    height: 0;
+    left: -16px;
+    position: absolute;
+    top: 8px;
+    width: 0;
+}
+.result_fail{
+    background: none repeat scroll 0 0 #BC1010;
+    border-radius: 20px 20px 20px 20px;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    text-align: center;
+}
+.result_ok{
+    background: none repeat scroll 0 0 #1EA700;
+    border-radius: 20px 20px 20px 20px;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    text-align: center;
+}
 
-.imagen{padding:0px 10px 8px 0px;}
+table, th, td
+{
+	margin-top: 15px;
+	margin-left: 15%;
+}
 
-div.pie{width:1080px; clear:both;}
+table
+{
+	box-shadow: 0px 4px 10px #B5C1C5, 0 0 0 8px #EEF5F7 inset;
+	border-collapse:collapse;
+	border-radius: 10px;
+	width:70%;
+	}
 
-label{display:block; float:left; width:100px;}
+th
+{
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+	background-color:white;
+	color:black;
+	height:40px;
+	font-size: 18px;
+	font-weight: bold;
+}
 
-div.derecha {float:right; color:white; font-weight:bold; padding: 10px 10px 0px 0px;}
+td
+{
+	border-bottom: 1px solid #ccc;
+	text-align:center;
+	height:30px;
+	vertical-align:middle;
+	padding: 6px 5px;
+	font-size: 12px;
+	font-weight: normal;
+}
 
-input.derech{float:right;}
-
-table, td, th {border: none; background-color: none; color: white;}
-
-h2{float:center; text-decoration:underline; color:red; text-align:left;}
-h4{padding: 0px 0px 0px 0px; text-align: center;}
-.proveedores{vertical-align: top; text-decoration:none; color:red; text-align:left; font-size:20px; font-weight:bold;}
-
-.img_prov{width:100px; height:100px; padding:0px 10px 0px 0px;}
-.caratula{width:110px; height:110px; padding:0px 0px 0px 0px;}
-.center{float:center; text-decoration:none; color:white; text-align:center; margin:auto; font-weight:bold;}
-ul{color: white; font-weight:normal ; font-size: 18px;list-style: none;  }
-.menu{width:100%;}
-.portada{width:300px; height:300px;}
-#listado {width: 45%; float: right; }
-ol li{font-size: 14px;}
-#caratula{float: left; display: inline; width: 55%;text-align: center;}
-.logoAcordeon{width:400px; height:210px; padding: 100px 50px 50px 220px}
-#caratulaAcordeon{float: none; display: inline; margin: auto; width: 100%}*/
+tbody tr:hover td
+{
+color: #F95565;
+}

@@ -1,5 +1,8 @@
 <?php
+session_start();
+session_regenerate_id();
  require_once 'funciones/conectar.php';
+ require_once 'funciones/login.php';
  if(isset($_GET['acc'])){              
                         
                 switch($_GET['acc']){
@@ -50,17 +53,24 @@
                         <li><a href="?acc=4">Como comprar</a></li>
                         <li><a href="?acc=5">Contactos</a></li>
                     </ul>
-                    <form action="index.php" method="POST" id="login">
-                        <label>Usuario:</label>
-                        <input name="user" value="" type="text" id="user"/>
-                        <label>Contrase&ntildea:</label>
-                        <input name="pass" value="" type="password" id="pass"/>
-                        <button><i class="loguear"></i></button>
-                    </form>
+                    
+                    <?php
+                    if(isset($_SESSION['user_public'])){
+                        echo 'Bienvenido'.$_SESSION['user_public'].' | <a class="sesion" href="../index.php?logout=on">Desconectar</a>';
+                    }else{
+                    echo '<form action="index.php" method="POST" id="login">
+                            <label>Usuario:</label>
+                            <input name="user" value="" type="text" id="user"/>
+                            <label>Contrase&ntildea:</label>
+                            <input name="pass" value="" type="password" id="pass"/>
+                            <button><i class="loguear"></i></button>
+                          </form>';
+                    }
+                        ?>
         </div>
+        <div id="mensajeSesion"><?php echo $mensajeLogin?></div>    
     </div>
-        <!--FIN DIV QUE CONTIENE EL ENCABEZADO-->
-                 
+    <!--COMIENZA CUERPO DE PAGINA-->
     <div id="cuerpo">
         <?php include $contenido;?>
     </div>
