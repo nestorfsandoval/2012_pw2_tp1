@@ -71,13 +71,18 @@ $(function() {
 									allFields.removeClass( "ui-state-error" );
 				
 									bValid = bValid && checkLength( name, "Nombre", 3, 40 );
+                                                                        console.log(bValid);
 									bValid = bValid && checkLength( user, "Usuario", 6, 16 );
+                                                                        console.log(bValid);
 									bValid = bValid && checkLength( password, "Contrase&ntilde;a", 5, 16 );
-                                                                        console.log("largo:"+$("#ciudad").val().length)
+                                                                        console.log(bValid);
                                                                         
 									bValid = bValid && checkRegexp( name, /^[\w\-\s\dÀÈÌÒÙàèìòùÁÉÍÓÚÝáéíóúýÂÊÎÔÛâêîôûÃÑÕãñõÄËÏÖÜäëïöüçÇßØøÅåÆæÞþÐð]+$/i, "Nombre puede contener valores de a-z, 0-9, guiones bajos, y debe comenzar con una letra." );
+                                                                        console.log(bValid);
 									bValid = bValid && checkRegexp( user, /^[\w\-\s\dÀÈÌÒÙàèìòùÁÉÍÓÚÝáéíóúýÂÊÎÔÛâêîôûÃÑÕãñõÄËÏÖÜäëïöüçÇßØøÅåÆæÞþÐð]+$/i, "Usuario puede contener valores de a-z, 0-9, guiones bajos, y debe comenzar con una letra." );
+                                                                        console.log(bValid);
 									bValid = bValid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Contraseña solo permite caracateres desde a-z y desde 0-9" );
+                                                                        console.log(bValid);
 
 									if ( bValid ) {
                                                                                         $("#addUser").submit();
@@ -132,6 +137,7 @@ $(function() {
 			modal: true,
 			buttons:{
 				Actualiza: function(){
+                                        $(this).submit(),
 					$(this).dialog("close");//cierra Actualizar
 				},
 				Cancelar: function(){
@@ -217,7 +223,6 @@ $(function() {
 									
 									if ( bValid ) {
                                                                                 $("#newProdu").submit(),
-										alert("El Disco se agrego Correctamente."),
 											$( this ).dialog( "close" );
 										}
 				},
@@ -331,33 +336,9 @@ $(function() {
 			buttons:{
 				Agregar: function(){
 								var bValid = true;
-									/*titulo = $( "#tit" ),
-									interprete = $( "#inter" ),
-									anio = $( "#anual" ),
-									cant = $( "#cantidad" ),
-									genero = $("#gen"),
-									valor = $( "#precio" ),
-									allFields = $( [] ).add( titulo ).add( interprete ).add( anio ).add(cant).add(genero).add(valor),
-									
-									allFields.removeClass( "ui-state-error" );
-				
-									bValid = bValid && checkLength( titulo, "Titulo", 1, 40 );
-									bValid = bValid && checkLength( interprete, "Interprete", 2, 20 );
-									bValid = bValid && checkLength( anio, "A&ntilde;o", 1, 4 );
-									bValid = bValid && checkLength( cant, "Cantidad", 1, 9 );
-									bValid = bValid && checkLength( genero, "Genero", 2, 30 );
-									bValid = bValid && checkLength( valor, "Precio", 1, 20 );
-									
-									bValid = bValid && checkRegexp( titulo, /^[\w\-\s\d?????????????????????????????????????????????????????????????]+$/i, "T?tulo puede contener valores de a-z, 0-9, guiones bajos, y debe comenzar con una letra." );
-									bValid = bValid && checkRegexp( interprete, /^[\w\-\s\d?????????????????????????????????????????????????????????????]+$/i, "Interprete puede contener valores de a-z, 0-9, guiones bajos, y debe comenzar con una letra." );
-									bValid = bValid && checkRegexp( anio, /^[0-9]+$/i, "A?o permite solo valores numericos" );
-									bValid = bValid && validaAnio(anio);
-									bValid = bValid && checkRegexp( cant, /^[0-9]+$/i, "Cantidad permite solo valores numericos" );
-									bValid = bValid && checkRegexp( genero, /^[\w\-\s\d?????????????????????????????????????????????????????????????]+$/i, "G?nero puede contener valores de a-z, 0-9, guiones bajos, y debe comenzar con una letra." );*/
-									
+																	
 									if ( bValid ) {
                                                                                 $(this).submit(),
-										alert("El Disco se actualizo Correctamente."),
 											$( this ).dialog( "close" );
 										}
 				},
@@ -374,8 +355,6 @@ $(function() {
 		
 
    //FECHAS
-//   $("#fechad").datepicker({changeMonth : true, changeYear : true, showButtonPanel : true} );
-//   $("#fechah").datepicker({changeMonth : true, changeYear : true, showButtonPanel : true} );
    $("#fechah, #fechad, #fechaCompra, #modfechaCompra").datepicker({changeMonth : true, changeYear : true, showButtonPanel : true} );
    $("#fechad, #fechah").bind({
 				change: function(event)
@@ -424,19 +403,9 @@ $(function() {
 									allFields = $( [] ).add( fechC ).add( provee ).add( fact ).add(monto).add(remito),
 												
 									allFields.removeClass( "ui-state-error" );
-									console.log("Agregar Compra");
-									console.log(fechC.val());
-									console.log(bValid = bValid && posibleFecha(fechC.val()));
-									console.log(bValid = bValid && checkLength( provee, "Proveedor", 2, 30 ));
-									console.log(bValid = bValid && checkRegexp( provee, /^[\w\-\s\dÀÈÌÒÙàèìòùÁÉÍÓÚÝáéíóúýÂÊÎÔÛâêîôûÃÑÕãñõÄËÏÖÜäëïöüçÇßØøÅåÆæÞþÐð]+$/i, "Proveedor puede contener valores de a-z, 0-9, guiones bajos, y debe comenzar con una letra." ));
-									console.log(bValid = bValid && checkLength( fact, "N° Factura", 1, 30 ));
-									console.log(bValid = bValid && checkRegexp( fact, /^[0-9]+$/i, "N° Factura permite solo valores numericos" ));
-									console.log(bValid = bValid && checkLength( monto, "Monto de Factura", 1, 9 ));
-									console.log(bValid = bValid && checkRegexp( monto, /^[0-9,.]+$/i, "Monto permite solo valores numericos" ));
-									console.log(bValid = bValid && checkLength( remito, "N° Remito", 1, 30 ));
-									console.log(bValid = bValid && checkRegexp( remito, /^[0-9]+$/i, "N° de Remito permite solo valores numericos" ));
 																											
 									if ( bValid ) {
+                                                                            $(this).submit(),
 										alert("Compra ha sido Cargada.")
 											$( this ).dialog( "close" );
 										}
@@ -480,26 +449,9 @@ $(function() {
 									
 									
 									allFields.removeClass( "ui-state-error" );
-				
-									console.log("Editar Compra");
-									console.log(bValid = bValid && checkLength( provee, "Proveedor", 2, 30 ));
-									console.log(bValid = bValid && checkRegexp( provee, /^[\w\-\s\dÀÈÌÒÙàèìòùÁÉÍÓÚÝáéíóúýÂÊÎÔÛâêîôûÃÑÕãñõÄËÏÖÜäëïöüçÇßØøÅåÆæÞþÐð]+$/i, "Proveedor puede contener valores de a-z, 0-9, guiones bajos, y debe comenzar con una letra." ));
-									//console.log(bValid = bValid && posibleFecha(fechC.val()));
-									console.log("aaaa/mm/dd");
-									console.log(posibleFecha("2011/09/30"));
-									console.log("dd/mm/aaaa");
-									console.log(fechCompra.val());
-									console.log(posibleFecha(fechCompra.val()));
-									console.log(bValid = bValid && checkLength( fact, "N° Factura", 1, 30 ));
-									console.log(bValid = bValid && checkRegexp( fact, /^[0-9-]+$/i, "N° Factura permite solo valores numericos" ));
-									console.log(bValid = bValid && checkLength( monto, "Monto de Factura", 1, 9 ));
-									console.log(bValid = bValid && checkRegexp( monto, /^[0-9,.]+$/i, "Monto permite solo valores numericos" ));
-									console.log(bValid = bValid && checkLength( remito, "N° Remito", 1, 30 ));
-									console.log(bValid = bValid && checkRegexp( remito, /^[0-9]+$/i, "N° de Remito permite solo valores numericos" ));
 																											
 									if ( bValid ) {
 										console.log("es valido");
-										alert("Registro Actualizado.")
 											$( this ).dialog( "close" );
 										}else{
 											console.log("no es valido");

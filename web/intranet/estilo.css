@@ -42,12 +42,12 @@ div.izquierda {
 }
 
 div.pie{
-	width:1080
+	width:1080px;
 	clear:both;
 }
 
 div .contenedor{
-	width:80%;
+	width:100%;
 	float:left;
 }
 
@@ -160,7 +160,13 @@ li{
 	background-color:#B0B0B0;
 }
 
-.listado .editarUsuario{
+.listado-deshabilitado{
+    font-size:13px;
+    color: white;
+    background-color: orangered;
+}
+
+.listado .editarUsuario,.listado-deshabilitado .editarUsuario{
     background-image: url(css/smoothness/images/ui-icons_222222_256x240.png);
     background-position:  -64px -112px;    
     border-radius: 3px;
@@ -168,7 +174,7 @@ li{
     width: 20px;
     
 }
-.listado .borrarUsuario{
+.listado .borrarUsuario, .listado-deshabilitado .borrarUsuario{
     background-image: url(css/smoothness/images/ui-icons_222222_256x240.png);
     background-position:  -176px -96px;    
     border-radius: 3px;
@@ -235,4 +241,17 @@ margin-left:25px;
     height: 14px;
     width: 18px;
     display: inline-block;
+}
+
+#Alerta{
+    color: red;
+    margin: auto;
+    text-align: center;
+    text-decoration: #5D1D7B;
+    width: 1080px;
+}
+
+#newUser{
+    float: right;
+    margin-right: 50px;
 }

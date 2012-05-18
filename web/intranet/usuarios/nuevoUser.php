@@ -12,7 +12,7 @@
             <label>Contrase&ntilde;a:</label>
             <input id="password" type="password" name="pass"><br/>
             <label>Correo Electr&oacute;nico:</label>
-            <input id="user" type="email" name="mail"><br/>
+            <input id="email" type="email" name="mail"><br/>
             <label>Ciudad:</label>
             <select class="ciudad" name="ciudad" id="ciudad">
                 <option value="0">-->Eliga una Ciudad<--</option>
