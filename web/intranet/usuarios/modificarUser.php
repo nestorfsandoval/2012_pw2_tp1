@@ -1,14 +1,16 @@
 <!-- FORMULARIO PARA AGREGAR O EDITAR USUARIOS -->
 <form id="form-editar-user-<?php echo $user['id_emp']?>" class="editarUser" action="index.php?op=2" method="POST" title="Modificar Usuario">
         <input type="hidden" name="acc" value="editar">
+        <input type="hidden" name="user" value="<?php echo $user['user']?>">        
+        <input type="hidden" name="empleado" value="<?php echo $user['id_emp']?>">        
         <label>Nombre:</label>
-        <input id="name" type="text" name="mnombre" value="<?php echo $user['nombre']?>"><br/>	
+        <input id="mname" type="text" name="nombre" value="<?php echo $user['nombre']?>"><br/>	
         <label>Apellido:</label>
-        <input id="apellido" type="text" name="mapellido" value="<?php echo $user['apellido']?>"><br/>	
+        <input id="mapellido" type="text" name="apellido" value="<?php echo $user['apellido']?>"><br/>	
         <label>Correo Electr&oacute;nico:</label>
-        <input id="user" type="email" name="mmail" value="<?php echo $user['mail']?>"><br/>
+        <input id="memail" type="email" name="mail" value="<?php echo $user['mail']?>"><br/>
         <label>Ciudad:</label>
-        <select class="ciudad" name="mciudad" id="ciudad">
+        <select class="ciudad" name="ciudad" id="mciudad">
             <option value="0">-->Eliga una Ciudad<--</option>
             <?php 
                 foreach($ciudades as $id => $city):
@@ -22,10 +24,14 @@
             <option value="nueva">-->Nueva Ciudad<--</option>
         </select>
         <label>Privilegios:</label>
-        <select name="mprivi">
+        <select name="privi">
             <?php 
             foreach($privilegios as $id => $privi):
-                echo '<option value='.$privi['idprivilegios'].'>'.$privi['descripcion'].'</option>';
+                if($user['idprivilegio'] == $privi['idprivilegios']){
+                    echo '<option value='.$privi['idprivilegios'].' selected>'.$privi['descripcion'].'</option>';
+                }else{
+                    echo '<option value='.$privi['idprivilegios'].'>'.$privi['descripcion'].'</option>';
+                }
             endforeach;
             ?>
         
@@ -35,4 +41,5 @@
 <form id="form-deshabilitar-user-<?php echo $user['id_emp']?>" action="index.php?op=2" method="POST" class="borrarUser" title="Deshabilitar Usuario">
     <p><span class="alert"></span>Seguro desea Deshabilitar este usuario?</p>
     <input type="hidden" name="deshabilitar" value="<?php echo $user['id_emp']?>">
+    <input type="hidden" name="privi" value="<?php echo $user['idprivilegio']?>">
 </form>
