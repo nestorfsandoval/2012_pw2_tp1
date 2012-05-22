@@ -53,7 +53,7 @@
                     <form action="index.php" method="POST" id="login">
                         <label>Usuario:</label>
                         <input name="user" value="" type="text" id="user"/>
-                        <label>Contrase&ntildea:</label>
+                        <label>Contrase?a:</label>
                         <input name="pass" value="" type="password" id="pass"/>
                         <button><i class="loguear"></i></button>
                     </form>
